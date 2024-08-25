@@ -1,0 +1,30 @@
+<header>
+    <div class="container">
+        <div class="logo-container">
+            <img src="/images/university-logo.png" alt="University Logo" class="logo">
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <% if (user) { %>
+                <div class="header-dropdown">
+                    <a href="#" class="dropbtn"><%= user.username %></a>
+                    <div class="header-dropdown-content">
+                        <% if (user.role === 'author') { %>
+                            <a href="/author-dashboard">Dashboard</a>
+                            <a href="/submit-manuscript">Submit Manuscript</a>
+                        <% } else if (user.role === 'reviewer') { %>
+                            <a href="/reviewer-dashboard">Dashboard</a>
+                        <% } else if (user.role === 'editor') { %>
+                            <a href="/editor-dashboard">Dashboard</a>
+                            <a href="/export-excel">Export to Excel</a>
+                        <% } %>
+                        <a href="/logout">Logout</a>
+                    </div>
+                </div>
+            <% } else { %>
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            <% } %>
+        </nav>
+    </div>
+</header>

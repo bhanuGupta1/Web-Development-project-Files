@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviewer Dashboard</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <main>
+        <h2>Your Assigned Manuscripts</h2>
+        
+        <% if (manuscripts.length > 0) { %>
+            <% manuscripts.forEach(function(manuscript) { %>
+                <section class="manuscript">
+                    <h3><%= manuscript.title %></h3>
+                    <p><strong>Abstract:</strong> <%= manuscript.abstract %></p>
+                    <p><strong>File:</strong> <a href="/<%= manuscript.file_path %>" download>Download Manuscript</a></p>
+                    
+                    <!-- Display Reviews -->
+                    <h4>Reviews</h4>
+                    <% if (manuscript.reviews && manuscript.reviews.length > 0) { %>
+                        <ul>
+                            <% manuscript.reviews.forEach(function(review) { %>
+                                <li>
+                                    <p><strong>Feedback:</strong> <%= review.feedback %></p>
+                                    <p><strong>Decision:</strong> <%= review.decision %></p>
+                                    <p><strong>Date:</strong> <%= new Date(review.review_date).toLocaleDateString() %></p>
+                                </li>
+                            <% }); %>
+                        </ul>
+                    <% } else { %>
+                        <p>No reviews yet.</p>
+                    <% } %>
+                    
+                    <!-- Link to Submit Review -->
+                    <a href="/submit-review/<%= manuscript.id %>" class="btn">Submit Review</a>
+                </section>
+            <% }); %>
+        <% } else { %>
+            <p>No manuscripts assigned to you at the moment.</p>
+        <% } %>
+    </main>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

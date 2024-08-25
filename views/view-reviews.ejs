@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Reviews - <%= manuscript.title %></title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <main>
+        <h2>Reviews for "<%= manuscript.title %>"</h2>
+        <% if (reviews.length > 0) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Reviewer</th>
+                        <th>Feedback</th>
+                        <th>Decision</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% reviews.forEach(function(review) { %>
+                        <tr>
+                            <td>Anonymous</td> <!-- Or you can include the reviewer's ID if anonymity is not required -->
+                            <td><%= review.feedback %></td>
+                            <td><%= review.decision %></td>
+                            <td><%= new Date(review.review_date).toLocaleDateString() %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No reviews have been submitted for this manuscript yet.</p>
+        <% } %>
+    </main>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

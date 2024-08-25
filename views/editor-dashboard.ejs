@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor Dashboard</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    
+    <header>
+        <h1>Editor Dashboard</h1>
+        <nav>
+            <a href="/export-excel" class="btn">Export to Excel</a>
+            <a href="/logout" class="btn">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <h2>All Manuscripts</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Status</th>
+                    <th>Submission Date</th>
+                    <th>Actions</th>
+                    <th>Download</th> <!-- Added Download Column -->
+                </tr>
+            </thead>
+            <tbody>
+                <% manuscripts.forEach(function(manuscript) { %>
+                    <tr>
+                        <td><%= manuscript.title %></td>
+                        <td><%= manuscript.author_id %></td>
+                        <td><%= manuscript.status %></td>
+                        <td><%= new Date(manuscript.submission_date).toLocaleDateString() %></td>
+                        <td>
+                            <% if (manuscript.status === 'submitted') { %>
+                                <form action="/assign-reviewer" method="POST">
+                                    <input type="hidden" name="manuscriptId" value="<%= manuscript.id %>">
+                                    <select name="reviewerId" required>
+                                        <% reviewers.forEach(function(reviewer) { %>
+                                            <option value="<%= reviewer.id %>"><%= reviewer.username %></option>
+                                        <% }) %>
+                                    </select>
+                                    <button type="submit" class="btn">Assign Reviewer</button>
+                                </form>
+                            <% } else { %>
+                                <span>Reviewer Assigned</span>
+                            <% } %>
+                        </td>
+                        <td>
+                            <a href="/download/<%= manuscript.id %>" class="btn">Download</a> <!-- Download Button -->
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        <p>&copy; 2024 Otago Polytechnic Auckland International Campus</p>
+    </footer>
+</body>
+</html>

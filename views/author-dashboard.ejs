@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Author Dashboard</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Author Dashboard</h1>
+        <nav>
+            <a href="/submit-manuscript" class="btn">Submit New Manuscript</a>
+            <a href="/logout" class="btn">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Your Submitted Manuscripts</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Submission Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% manuscripts.forEach(function(manuscript) { %>
+                    <tr>
+                        <td><%= manuscript.title %></td>
+                        <td><%= manuscript.status %></td>
+                        <td><%= new Date(manuscript.submission_date).toLocaleDateString() %></td>
+                        <td><a href="/view-reviews/<%= manuscript.id %>" class="btn">View Reviews</a></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        <p>&copy; 2024 Otago Polytechnic Auckland International Campus</p>
+    </footer>
+</body>
+</html>

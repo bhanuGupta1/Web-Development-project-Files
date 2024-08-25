@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Manuscript - Academic Journal Platform</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <main>
+        <h2>Submit New Manuscript</h2>
+        <form action="/submit-manuscript" method="POST" enctype="multipart/form-data">
+            <label for="title">Manuscript Title:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="abstract">Abstract:</label>
+            <textarea id="abstract" name="abstract" rows="5" required></textarea>
+
+            <label for="manuscript">Upload Manuscript (PDF/DOC):</label>
+            <input type="file" id="manuscript" name="manuscript" accept=".pdf,.doc,.docx" required>
+
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </main>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

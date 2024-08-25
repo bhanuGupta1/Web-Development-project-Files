@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Journal Platform</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <!-- Hero Section with Video -->
+    <section class="hero">
+        <video autoplay muted loop id="heroVideo">
+            <source src="/Videos/campus.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content">
+            <h1>Welcome to Our Academic Journal Platform</h1>
+            <p>Peer-reviewed publications by Otago Polytechnic Auckland International Campus</p>
+            <a href="/register" class="btn-primary">Get Started</a>
+        </div>
+    </section>
+
+    <main class="container">
+        <!-- Features Section -->
+        <section class="features">
+            <h2>Our Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-file-alt fa-3x"></i>
+                    <h3>Submit Manuscripts</h3>
+                    <p>Easily submit your research for review and publication.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-user-edit fa-3x"></i>
+                    <h3>Review Process</h3>
+                    <p>Engage in a rigorous peer review process to ensure quality.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-chart-line fa-3x"></i>
+                    <h3>Track Progress</h3>
+                    <p>Monitor the status of your submissions and reviews.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <div class="cta">
+            <h2>Join Our Community</h2>
+            <p>Become a part of our academic community by submitting your work or contributing as a reviewer.</p>
+            <a href="/register" class="btn btn-primary">Register Now</a>
+        </div>
+    </main>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

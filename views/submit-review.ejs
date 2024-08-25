@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Review - <%= manuscript.title %></title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <main>
+        <h2>Submit Review for "<%= manuscript.title %>"</h2>
+        
+        <!-- Manuscript Details -->
+        <section class="manuscript-details">
+            <h3>Manuscript Details</h3>
+            <p><strong>Title:</strong> <%= manuscript.title %></p>
+            <p><strong>Abstract:</strong> <%= manuscript.abstract %></p>
+            <p><strong>File:</strong> <a href="/<%= manuscript.file_path %>" download>Download Manuscript</a></p>
+        </section>
+
+        <!-- Review Form -->
+        <form action="/submit-review/<%= manuscript.id %>" method="POST">
+            <label for="feedback">Feedback:</label>
+            <textarea id="feedback" name="feedback" rows="5" required></textarea>
+
+            <label for="decision">Decision:</label>
+            <select id="decision" name="decision" required>
+                <option value="accepted">Accept</option>
+                <option value="rejected">Reject</option>
+                <option value="revision">Revision Needed</option>
+            </select>
+
+            <button type="submit" class="btn">Submit Review</button>
+        </form>
+    </main>
+
+    <%- include('partials/footer') %>
+</body>
+</html>
