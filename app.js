@@ -186,7 +186,6 @@ app.get('/reviewer-dashboard', isAuthenticated, (req, res) => {
     });
 });
 
-
 // Submit Review Route
 app.post('/submit-review/:manuscriptId', isAuthenticated, (req, res) => {
     if (req.session.user.role !== 'reviewer') {
@@ -245,6 +244,7 @@ app.post('/assign-reviewer', isAuthenticated, (req, res) => {
             res.redirect('/editor-dashboard');
         });
 });
+
 // View Reviews Route
 app.get('/view-reviews/:manuscriptId', isAuthenticated, (req, res) => {
     const manuscriptId = req.params.manuscriptId;
@@ -261,6 +261,7 @@ app.get('/view-reviews/:manuscriptId', isAuthenticated, (req, res) => {
         });
     });
 });
+
 // Submit Review Form Route
 app.get('/submit-review/:manuscriptId', isAuthenticated, (req, res) => {
     const manuscriptId = req.params.manuscriptId;
@@ -274,10 +275,9 @@ app.get('/submit-review/:manuscriptId', isAuthenticated, (req, res) => {
 });
 
 // Route to handle file download
-app.get('/download/:id', isAuthenticated, (req, res) => {
+app.get('/download/:id', (req, res) => {
     const manuscriptId = req.params.id;
     
-    // Replace this with the actual logic to retrieve the file path from your database
     db.get('SELECT file_path FROM Manuscripts WHERE id = ?', [manuscriptId], (err, row) => {
         if (err) {
             return res.status(500).send('Error retrieving the file.');
@@ -330,8 +330,21 @@ app.get('/export-excel', isAuthenticated, (req, res) => {
     });
 });
 
-// Start the server
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+// Reader Dashboard Route - No Login Required
+app.get('/reader-dashboard', (req, res) => {
+    // Fetch only approved manuscripts
+    db.all('SELECT * FROM Manuscripts WHERE status = "accepted"', [], (err, manuscripts) => {
+        if (err) {
+            return res.status(500).send('Error retrieving manuscripts.');
+        }
+        // Pass user as null since readers don't need to be logged in
+        res.render('reader-dashboard', { manuscripts, user: null });
+    });
+});
+
+
+// Server setup
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });

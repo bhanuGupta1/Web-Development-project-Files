@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reader Dashboard</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        /* Newspaper Style for Articles */
+        .article-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 30px auto;
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .article {
+            background-color: white;
+            margin: 15px;
+            padding: 20px;
+            width: 48%; /* Two articles per row */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .article:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .article h3 {
+            margin-top: 0;
+            color: #004c97;
+            font-size: 22px;
+        }
+
+        .article p {
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .article-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-download {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-download:hover {
+            background-color: #0056b3;
+        }
+
+        @media screen and (max-width: 768px) {
+            .article {
+                width: 100%; /* Full width on smaller screens */
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <main>
+        <h2>Approved Articles</h2>
+        <div class="article-container">
+            <% manuscripts.forEach(function(manuscript) { %>
+                <div class="article">
+                    <h3><%= manuscript.title %></h3>
+                    <p><strong>Author:</strong> <%= manuscript.author_id %></p>
+                    <p><%= manuscript.abstract %></p>
+                    <div class="article-footer">
+                        <span><strong>Published:</strong> <%= new Date(manuscript.submission_date).toLocaleDateString() %></span>
+                        <a href="/download/<%= manuscript.id %>" class="btn-download">Download Full Article</a>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </main>
+
+    <%- include('partials/footer') %>
+</body>
+</html>
